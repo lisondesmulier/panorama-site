@@ -1,18 +1,15 @@
 import { getProjectByDocumentId } from "../../../../lib/api"
 import ProjectGallery from "../../../app/components/ProjetGallery"
-import { notFound } from "next/navigation"
 
-type PageProps = {
-  params: {
-    documentId: string
-  }
+type Props = {
+  params: Record<"documentId", string>
 }
 
-export default async function ProjectDetailPage({ params }: PageProps) {
+export default async function ProjectDetailPage({ params }: Props) {
   const project = await getProjectByDocumentId(params.documentId)
 
   if (!project) {
-    notFound() // meilleure pratique que de retourner un <div>
+    return <div className="p-10">Projet introuvable</div>
   }
 
   return (

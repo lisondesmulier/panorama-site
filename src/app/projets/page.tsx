@@ -19,15 +19,12 @@ export default function ProjetsPage() {
   const [projects, setProjects] = useState<Project[]>([])
 
   useEffect(() => {
-    getProjects().then(setProjects)
-  }, [])
-
-  useEffect(() => {
   getProjects().then((data) => {
-    console.log("DATA PROJECTS :", data);
-    setProjects(data);
-  });
-}, []);
+    console.log("DATA PROJECTS :", data)
+    setProjects(data)
+  })
+}, [])
+
 
 
   return (

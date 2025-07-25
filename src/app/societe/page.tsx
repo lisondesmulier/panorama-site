@@ -1,7 +1,5 @@
 import BrandMarquee from "../components/BrandMarquee";
-import HeroLaSociete from "../components/HeroLaSociete";
 import IntroLaSociete from "../components/IntroLaSociete";
-import Footer from "../components/Footer";
 import PolesCarousel from "../components/PolesCarousel";
 import { getIntroLaSociete } from "../../../lib/api";
 import { getBrandsliste } from "../../../lib/api";
@@ -9,9 +7,29 @@ import { getPoles } from "../../../lib/api";
 
 // app/services/page.tsx
 export default async function Societe() {
-  const data = await getIntroLaSociete()
-  const poles = await getPoles()
-  const brands = await getBrandsliste();
+
+  interface SocieteContent {
+  content: string[]
+}
+
+interface Pole {
+  title: string
+  description: string
+  members: string[]
+  memojis: string[]
+}
+
+interface Brand {
+  name: string
+  logo: { url: string }
+}
+const data: SocieteContent = await getIntroLaSociete()
+const poles = await getPoles()
+const formattedPoles = poles.map(p => ({
+  ...p,
+  icon: p.icon ?? "" // ou une icône par défaut
+}))
+const brands: Brand[] = await getBrandsliste()
 
   if (!data.content || data.content.length === 0) {
     return (

@@ -115,7 +115,7 @@ export default function PolesCarousel({ poles }: { poles: Pole[] }) {
 
       {/* === Mobile layout === */}
       <div className="flex flex-col items-center justify-center gap-4 px-4 md:hidden ">
-        <div className="relative w-full max-w-xl min-h-[220px] ">
+        <div className="relative w-full max-w-xl min-h-[200px] ">
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={index}

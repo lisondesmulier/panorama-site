@@ -1,26 +1,21 @@
 import { getIntroSection, getHomeServices } from "../../lib/api"
-import Footer from "./components/Footer"
 import Hero from "./components/Hero"
 import IntroSection from "./components/IntroSection"
 import LinkdnSection from "./components/LinkdnSection"
 import ServicesScrollText from "./components/ServicesScrollSection"
-import { getLinkedinPosts } from "../../lib/getLinkedinPosts"
 import ProjectsSection from "./components/ProjetsSection"
 import PartnershipsSection from "./components/PartnershipsSection"
 import BlocVert from "./components/BlocVert"
 import { getProjectsSection } from "../../lib/api"
 import { getFooter } from "../../lib/api"
 import { getPartnershipsSection } from "../../lib/api"
-import type { BlocksContent } from "@strapi/blocks-react-renderer"
 
 export default async function Home() {
   const data = await getIntroSection()
   const services = await getHomeServices()
  
-
   const projectSection = await getProjectsSection()
   const partnerships = await getPartnershipsSection();
-const footerData = await getFooter();
 
 
   if (!data) {

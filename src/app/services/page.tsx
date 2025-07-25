@@ -4,6 +4,20 @@ import { getServicesPage, getFooter } from "../../../lib/api"
 export default async function ServicesPage() {
   const data = await getServicesPage()
 
+  interface Card {
+  title: string;
+  description: string;
+  image: { url: string };
+}
+
+interface Bloc {
+  title: string;
+  description: string;
+  bgColor: string;
+  card: Card[];
+}
+
+
   return (
     <main className="mt-12 bg-[#F5EFE3]">
       {/* Header */}
@@ -14,14 +28,15 @@ export default async function ServicesPage() {
         <div className="absolute -bottom-7 right-6 md:right-20 z-10">
           <div className="mt-8 flex justify-center">
             <div className="bg-[#D2E4BB] p-4 rounded-full w-16 h-16 flex items-center justify-center shadow-md">
-              <img src="../icons/arrow.svg" alt="flèche vers le bas" className="rotate-90" />
+              <img src="/icons/arrow.svg" alt="flèche vers le bas" className="rotate-90" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Blocks dynamiques */}
-      {data.block?.map((bloc: any, index: number) => (
+      {data.block?.map((bloc: Bloc, index: number) => (
+
         <ServiceBlock
           key={index}
           index={index + 1}
