@@ -12,17 +12,26 @@ export default async function Partenariats() {
         blocks={blocks}
       />
 
-      {blocks.map((block, index) => (
-        <PartnershipBlock
-          key={block.id}
-          id={block.id}
-          title={block.title}
-          description={block.description}
-          images={block.images}
-          displayAsGreenTitle={block.displayAsGreenTitle}
-          index={index}
-        />
-      ))}
+ 
+      {blocks.map((block: {
+  id: number;
+  title: string;
+  description: string;
+  images: string[];
+  displayAsGreenTitle?: boolean;
+}, index: number) => (
+  <PartnershipBlock
+    key={block.id}
+    id={block.id}
+    title={block.title}
+    description={block.description}
+    images={block.images}
+    displayAsGreenTitle={block.displayAsGreenTitle}
+    index={index}
+  />
+))}
+
+
     </main>
   )
 }

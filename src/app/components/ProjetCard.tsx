@@ -55,7 +55,7 @@ const isInView = useInView(ref, { once: true })
           transition={{ delay: 0.3, duration: 0.5 }}
           className="flex justify-end font-azoSansRegular "
         >
-          <a href={`/projets/${documentId}`} className="btn rounded-full mt-6 inline-block font-azoSansMedium px-6 py-2 border-2 border-white rounded-full text-lg hover:bg-white hover:text-black transition">
+          <a href={`/projets/detail?id=${documentId}`} className="btn rounded-full mt-6 inline-block font-azoSansMedium px-6 py-2 border-2 border-white rounded-full text-lg hover:bg-white hover:text-black transition">
             Voir plus
           </a>
         </motion.div>

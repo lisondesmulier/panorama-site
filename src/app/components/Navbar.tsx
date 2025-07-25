@@ -145,7 +145,10 @@ export default function Navbar() {
           {navItems.map(({ href, label }) => (
             <li
               key={href}
-              ref={(el) => (refs.current[href] = el)}
+              ref={(el) => {
+  refs.current[href] = el
+}}
+
               className="relative px-4 text-center"
             >
               <Link href={href} className="inline-flex items-center justify-center h-full relative">

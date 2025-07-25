@@ -101,7 +101,7 @@ export async function getContactSection() {
 
 
 
-export async function getIntroLaSociete() {
+export async function getIntroLaSociete(): Promise<{ content: string[] }> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/intro-la-societe`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
@@ -110,19 +110,13 @@ export async function getIntroLaSociete() {
 
   const json = await res.json();
   console.log("🔍 Contenu Strapi brut :", JSON.stringify(json, null, 2));
-if (!json.data) {
-    console.warn("❗Pas de données reçues :", json);
-    return []; // ou throw une erreur
-  }
-  // Vérifie que `json.data` existe
-  if (!json.data) {
+
+  // Toujours retourner { content: string[] }
+  if (!json.data || !Array.isArray(json.data.content)) {
     return { content: [] };
   }
 
-  // Retourne `json.data.content` directement
-  const content = Array.isArray(json.data.content) ? json.data.content : [];
-
-  return { content };
+  return { content: json.data.content };
 }
 
 export async function getPoles() {
@@ -160,6 +154,13 @@ export async function getPoles() {
       memojis,
     }
   })
+}
+export type PartnershipBlockType = {
+  id: number
+  title: string
+  description: string
+  images: string[]
+  displayAsGreenTitle: boolean
 }
 
 export async function getPartnershipBlocks() {
@@ -243,7 +244,8 @@ export async function getLinkedinPosts() {
         images: imagesArray,
       };
     })
-    .filter((post) => post.images.length > 0);
+    .filter((post: any) => post.images.length > 0);
+
 }
 
 
@@ -520,4 +522,37 @@ export async function getPartnershipIntro() {
   return {
     description: data?.description || [],
   };
+}
+
+// app/api/project/route.ts
+import { NextResponse } from "next/server"
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const documentId = searchParams.get("documentId")
+
+  const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337"
+
+  const res = await fetch(`${API_URL}/api/projects-cards?filters[documentId][$eq]=${documentId}&populate=gallery`)
+  const data = await res.json()
+
+  const item = data?.data?.[0]
+  if (!item) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 })
+  }
+
+  const gallery = (item.gallery || []).map((img: any) => ({
+    url: img.url.startsWith("http") ? img.url : `${API_URL}${img.url}`,
+    name: img.name,
+    alternativeText: img.alternativeText,
+    caption: img.caption,
+  }))
+
+  return NextResponse.json({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    documentId: item.documentId,
+    gallery,
+  })
 }

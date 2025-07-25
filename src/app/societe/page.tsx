@@ -27,9 +27,9 @@ const data: SocieteContent = await getIntroLaSociete()
 const poles = await getPoles()
 const formattedPoles = poles.map(p => ({
   ...p,
-  icon: p.icon ?? "" // ou une icône par défaut
+
 }))
-const brands: Brand[] = await getBrandsliste()
+const brands: string[] = await getBrandsliste()
 
   if (!data.content || data.content.length === 0) {
     return (
