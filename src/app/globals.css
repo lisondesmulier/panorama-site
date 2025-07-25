@@ -1,0 +1,165 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* === Azo Mono === */
+@font-face {
+  font-family: "AzoMono";
+  src: url("/fonts/AzoMonoTest-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "AzoMono";
+  src: url("/fonts/AzoMonoTest-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: bold;
+}
+@font-face {
+  font-family: "AzoMono";
+  src: url("/fonts/AzoMonoTest-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "AzoMono";
+  src: url("/fonts/AzoMonoTest-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* === Azo Sans === */
+@font-face {
+  font-family: 'AzoSansRegular';
+  src: url('/fonts/Azo_Sans_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AzoSansMedium';
+  src: url('/fonts/Azo_Sans_Medium.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AzoSansBlack';
+  src: url('/fonts/Azo_Sans_Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AzoSans";
+  src: url("/fonts/AzoSansTest-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: medium;
+}
+@font-face {
+  font-family: "AzoSans";
+  src: url("/fonts/AzoSansTest-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: bold;
+}
+@font-face {
+  font-family: "AzoSans";
+  src: url("/fonts/AzoSansTest-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "AzoSans";
+  src: url("/fonts/AzoSansTest-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "AzoSans";
+  src: url("/fonts/AzoSansTest-Thin.otf") format("opentype");
+  font-weight: 400;
+  font-style: thin;
+}
+
+
+/* === Azo Super === */
+@font-face {
+  font-family: "AzoSuper";
+  src: url("/fonts/AzoSuperTest.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@keyframes slide-x {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+.animate-slide-x {
+  animation: slide-x 1.5s infinite ease-in-out;
+}
+@keyframes slideInUpRight {
+  0% {
+    opacity: 0;
+    transform: translate(40%, 40%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideInUpRight 0.4s ease-out forwards;
+}
