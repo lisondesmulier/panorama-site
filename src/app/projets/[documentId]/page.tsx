@@ -2,7 +2,9 @@ import { getProjectByDocumentId } from "../../../../lib/api"
 import ProjectGallery from "../../../app/components/ProjetGallery"
 
 type Props = {
-  params: Record<"documentId", string>
+  params: {
+    documentId: string
+  }
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
