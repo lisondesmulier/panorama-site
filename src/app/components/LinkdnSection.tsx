@@ -40,7 +40,7 @@ export default function LinkedinPreview() {
   return (
     <section className="py-16 px-4 bg-[#F5EFE3] text-black">
       <div className="max-w-6xl mx-auto">
-        <h2 className="md:text-5xl text-3xl flex text-[#01794D] justify-start font-azoBlack mb-10">
+        <h2 className="md:text-5xl text-3xl flex text-[#01794D] justify-center md:justify-start font-azoBlack mb-10">
           Actualités
         </h2>
 

@@ -12,6 +12,8 @@ type PartnershipBlockProps = {
   index?: number;
 };
 
+// ...imports et composants précédents identiques
+
 export default function PartnershipBlock({
   id,
   title,
@@ -20,7 +22,7 @@ export default function PartnershipBlock({
   displayAsGreenTitle = false,
   index = 0,
 }: PartnershipBlockProps) {
-  const isEven = index % 2 === 0;
+  const isEven = index % 2 === 0
 
   return (
     <motion.section
@@ -38,7 +40,7 @@ export default function PartnershipBlock({
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-         className="bg-[#01794D] rounded-e-2xl text-white font-azoSuper text-2xl md:text-5xl md:rounded-e-2xl px-6 md:px-20 py-8 md:py-12 w-fit mb-6 shadow"
+          className="bg-[#01794D] rounded-e-2xl text-white font-azoSuper text-2xl md:text-5xl md:rounded-e-2xl px-6 md:px-20 py-8 md:py-12 w-fit mb-6 shadow"
         >
           {title}
         </motion.div>
@@ -48,11 +50,10 @@ export default function PartnershipBlock({
       <div className="w-full flex">
         <motion.div
           className={`bg-white shadow-xl px-6 md:px-10 py-8 w-full 
-  md:max-w-[80%] 
-  ${isEven ? 'md:ml-auto' : 'md:mr-auto'} 
-  ${isEven ? 'md:rounded-ss-2xl' : 'md:rounded-se-2xl'}
-`}
-
+            md:max-w-[80%] 
+            ${isEven ? 'md:ml-auto' : 'md:mr-auto'} 
+            ${isEven ? 'md:rounded-ss-2xl' : 'md:rounded-se-2xl'}
+          `}
           initial={{ opacity: 0, x: isEven ? 50 : -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -67,48 +68,54 @@ export default function PartnershipBlock({
         </motion.div>
       </div>
 
-{/* Version desktop : scroll horizontal */}
-<motion.div
-  className="hidden md:flex overflow-x-auto"
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.6 }}
->
-  {images.map((src, index) => (
-    <div
-      key={index}
-      className="aspect-[3/2] w-[700px] min-w-[700px] flex-shrink-0 overflow-hidden"
-    >
-      <img
-        src={src}
-        alt={`Partenariat ${index}`}
-        className="w-full h-full object-cover"
-      />
-    </div>
-  ))}
-</motion.div>
+      {/* Affichage des images uniquement si présentes */}
+      {images.length > 0 && (
+        <>
+          {/* Desktop : scroll horizontal */}
+          <motion.div
+            className="hidden md:flex overflow-x-auto mt-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {images.map((src, index) => (
+              <div
+                key={index}
+                className="aspect-[3/2] w-[700px] min-w-[700px] flex-shrink-0 overflow-hidden"
+              >
+                <img
+                  src={src}
+                  alt={`Partenariat ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </motion.div>
 
-{/* Version mobile : swipe avec bullets */}
-<MobileCarousel images={images} />
+          {/* Mobile : carrousel */}
+          <MobileCarousel images={images} />
 
-
-
-{/* Flèche de scroll dessous – uniquement sur desktop */}
-<div className="hidden md:flex justify-end mt-1">
-  <div className="w-10 h-10 animate-slide-x bg-[#CBE4C2] rounded-full flex items-center justify-center shadow">
-    <img
-      src="/icons/Arrow.svg"
-      alt="Scroll horizontal"
-      className="w-5 h-5"
-    />
-  </div>
-</div>
-
-
+          {/* Flèche scroll desktop */}
+          <div className="hidden md:flex justify-end mt-1">
+            <div className="w-10 h-10 animate-slide-x bg-[#CBE4C2] rounded-full flex items-center justify-center shadow">
+              <img
+                src="/icons/Arrow.svg"
+                alt="Scroll horizontal"
+                className="w-5 h-5"
+              />
+            </div>
+          </div>
+        </>
+      )}
     </motion.section>
   )
 }
+
+
+
+
+
 
 import { useSwipeable } from "react-swipeable"
 
