@@ -112,7 +112,7 @@ const imageUrl = "/icons/logoContact.svg"; //
           >
             {[
               { href: "https://twitter.com", icon: "/icons/tiktok.svg", alt: "TikTok" },
-              { href: "https://linkedin.com", icon: "/icons/linkedIn.svg", alt: "LinkedIn" },
+              { href: "https://linkedin.com", icon: "/icons/LinkedIn.svg", alt: "LinkedIn" },
               { href: "https://instagram.com", icon: "/icons/Insta.svg", alt: "Instagram" },
             ].map((item, index) => (
               <a key={index} href={item.href} target="_blank" rel="noopener noreferrer">

@@ -8,7 +8,7 @@ export default async function ServicesPage() {
   title: string;
   description: string;
   image: { url: string };
-}
+} 
 
 interface Bloc {
   title: string;
