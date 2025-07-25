@@ -5,8 +5,10 @@ import { getLinkedinPosts } from "../../../lib/api"
 import { timeAgo } from "../../../lib/dateUtils"
 import RichText from "./RichText"
 import type { BlocksContent } from "@strapi/blocks-react-renderer"
-import { motion } from "framer-motion"
-import { u } from "framer-motion/client"
+import { AnimatePresence, motion } from "framer-motion"
+import { useSwipeable } from "react-swipeable"
+
+// Types
 
 type MediaItem = {
   url: string
@@ -19,6 +21,8 @@ type Post = {
   date: string
   images: MediaItem[]
 }
+
+// Composant principal
 
 export default function LinkedinPreview() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -40,7 +44,7 @@ export default function LinkedinPreview() {
           Actualités
         </h2>
 
-        {/* Desktop grid (3 colonnes) */}
+        {/* Desktop grid */}
         <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {posts.map((post, index) => (
             <motion.div
@@ -55,45 +59,36 @@ export default function LinkedinPreview() {
           ))}
         </div>
 
-      
-{/* Mobile carousel */}
-<div className="md:hidden">
-  {posts.length > 0 && (
-    <MobileCarousel posts={posts} />
-  )}
-</div>
-
+        {/* Mobile carousel */}
+        <div className="md:hidden">
+          {posts.length > 0 && <MobileCarousel posts={posts} />}
+        </div>
       </div>
     </section>
   )
 }
 
-import { useSwipeable } from "react-swipeable"
+// Composant MobileCarousel
 
 function MobileCarousel({ posts }: { posts: Post[] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const handleNext = () =>
-    setCurrentIndex((prev) => (prev + 1) % posts.length)
-  const handlePrev = () =>
-    setCurrentIndex((prev) => (prev - 1 + posts.length) % posts.length)
+  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % posts.length)
+  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + posts.length) % posts.length)
 
-  // Gestion des gestures
   const handlers = useSwipeable({
-    onSwipedLeft: () => handleNext(),
-    onSwipedRight: () => handlePrev(),
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrev,
     preventScrollOnSwipe: true,
-    trackMouse: true, // aussi pour le test avec souris
+    trackMouse: true,
   })
 
   return (
     <div className="relative" {...handlers}>
-      {/* Slide visible */}
       <div className="w-full">
         <PostCard post={posts[currentIndex]} />
       </div>
 
-      {/* Bullets indicateurs */}
       <div className="flex justify-center mt-4 gap-2">
         {posts.map((_, i) => (
           <button
@@ -109,25 +104,24 @@ function MobileCarousel({ posts }: { posts: Post[] }) {
   )
 }
 
-
+// Composant PostCard
 
 function PostCard({ post }: { post: Post }) {
   const [current, setCurrent] = useState(0)
   const total = post.images.length
+  const media = post.images[current]
 
-const media = post.images[current];
+  if (!media) {
+    return (
+      <article className="h-[500px] flex flex-col border rounded-xl shadow-md overflow-hidden text-sm bg-white hover:shadow-lg transition-shadow duration-300">
+        <div className="p-4 text-sm font-azoSansRegular text-gray-800">
+          <p className="text-red-600">Aucun média disponible</p>
+        </div>
+      </article>
+    )
+  }
 
-if (!media) {
-  return (
-    <article className="h-[500px] flex flex-col border rounded-xl shadow-md overflow-hidden text-sm bg-white hover:shadow-lg transition-shadow duration-300">
-      <div className="p-4 text-sm font-azoSansRegular text-gray-800">
-        <p className="text-red-600">Aucun média disponible</p>
-      </div>
-    </article>
-  );
-}
-
-const isVideo = media.mime?.startsWith("video");
+  const isVideo = media.mime?.startsWith("video")
 
   const handleNext = () => setCurrent((prev) => (prev + 1) % total)
   const handlePrev = () => setCurrent((prev) => (prev - 1 + total) % total)
@@ -135,83 +129,72 @@ const isVideo = media.mime?.startsWith("video");
   return (
     <article className="h-[500px] flex flex-col border rounded-xl shadow-md overflow-hidden text-sm bg-white hover:shadow-lg transition-shadow duration-300">
       {/* Header */}
-              <a
-  href="https://www.linkedin.com/company/panorama-be/posts/?feedView=all" // ← mets ici l'URL exacte de la page LinkedIn de Panorama
-  target="_blank"
-  rel="noopener noreferrer"
-  className="p-2 flex items-start gap-3 border-b hover:bg-gray-50 transition"
->
-      <div className="p-2 flex items-start gap-3 border-b">
-        
+      <a
+        href="https://www.linkedin.com/company/panorama-be/posts/?feedView=all"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="p-2 flex items-start gap-3 border-b hover:bg-gray-50 transition"
+      >
         <img
           src="/icons/LogoSimplePanoramaBlanc.svg"
           alt="Panorama"
           className="w-12 h-12 px-2 bg-[#01794D]"
         />
-
-        
         <div>
           <p className="font-bold text-sm leading-4">Panorama</p>
           <p className="text-xs text-gray-500">{post.date} • 🌐</p>
         </div>
+      </a>
+
+      {/* Description (scroll simple) */}
+      <div className="max-h-[180px] overflow-y-auto p-4 text-sm font-azoSansRegular text-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+        <RichText content={post.description} />
       </div>
 
-</a>
+      {/* Media */}
+      <div className="relative w-full h-56 max-h-[300px] overflow-hidden flex items-center justify-center bg-black">
+        {isVideo ? (
+          <video
+            src={media.url}
+            controls
+            className="w-full h-full object-contain"
+          />
+        ) : (
+          <>
+            <img
+              src={media.url}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover blur-md opacity-50 scale-110"
+              aria-hidden="true"
+            />
+            <img
+              src={media.url}
+              alt={`slide ${current + 1}`}
+              className="relative z-10 h-full object-contain"
+            />
+          </>
+        )}
 
-      {/* Description */}
-      <div className="relative max-h-[180px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-  {/* Zone de texte */}
-  <div className="p-4 text-sm font-azoSansRegular text-gray-800">
-    <RichText content={post.description} />
-  </div>
-
-  {/* Dégradé de fondu en bas */}
-  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#F5EFE3] to-transparent" />
-</div>
-
-       {/* Média */}
-    <div className="relative">
-      {isVideo ? (
-        <div className="w-full">
-  <video
-    src={media.url}
-    controls
-    className="w-full h-56 max-h-[300px] object-contain"
-  />
-</div>
-
-      ) : (
-        <div className="relative w-full h-56 max-h-[300px] overflow-hidden flex items-center justify-center bg-black">
-  {/* Image floutée en fond */}
-  <img
-    src={media.url}
-    alt=""
-    className="absolute inset-0 w-full h-full object-cover blur-md opacity-50 scale-110"
-    aria-hidden="true"
-  />
-
-  {/* Image réelle par-dessus */}
-  <img
-    src={media.url}
-    alt={`slide ${current + 1}`}
-    className="relative z-10 h-full object-contain"
-  />
-</div>
-
-      )}
-
-      {total > 1 && (
-        <>
-          <span className="absolute top-2 right-2 bg-black/90 text-white text-xs px-2.5 py-1 rounded shadow-md backdrop-blur-sm">
-  {current + 1}/{total}
-</span>
-
-          <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-1 rounded-full">‹</button>
-          <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-1 rounded-full">›</button>
-        </>
-      )}
-    </div>
-  </article>
-)
-
+        {total > 1 && (
+          <>
+            <span className="absolute top-2 right-2 bg-black/90 text-white text-xs px-2.5 py-1 rounded shadow-md backdrop-blur-sm">
+              {current + 1}/{total}
+            </span>
+            <button
+              onClick={handlePrev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-1 rounded-full"
+            >
+              ‹
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 p-1 rounded-full"
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+    </article>
+  )
 }

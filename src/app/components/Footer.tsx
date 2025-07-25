@@ -49,7 +49,7 @@ export default function Footer({ contactHtml }: FooterProps) {
               rel="noopener noreferrer"
               aria-label="Instagram"
             >
-              <Image src="/icons/insta.svg" alt="Instagram" width={32} height={32} />
+              <Image src="/icons/Insta.svg" alt="Instagram" width={32} height={32} />
             </a>
             <a
               href="https://www.tiktok.com/@tonprofil"

@@ -79,7 +79,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
 
 
 
-const imageUrl = "/images/logoContact.svg"; //
+const imageUrl = "/icons/logoContact.svg"; //
 
   return (
     <motion.section

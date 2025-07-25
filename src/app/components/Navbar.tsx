@@ -159,7 +159,7 @@ export default function Navbar() {
   transition={{ type: "spring", stiffness: 300, damping: 20 }}
 >
   {showHomeIcon && (
-    <img src="/icons/home.svg" alt="home" className="w-2 h-2" />
+    <img src="/icons/Home.svg" alt="home" className="w-2 h-2" />
   )}
 </motion.div>
 

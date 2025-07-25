@@ -3,7 +3,7 @@ export default function BlocVert() {
     <div className="w-full h-32 relative bg-[#01794D] overflow-hidden">
       {/* Trame décorative en fond */}
       <img
-  src="/images/Trame4-vertF.png"
+  src="./icons/Trame4-vertF.png"
   alt="Trame décorative"
   className="absolute inset-0 w-full h-full object-cover opacity-60 brightness-75"
 />
