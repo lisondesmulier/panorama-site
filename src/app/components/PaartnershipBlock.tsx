@@ -98,7 +98,7 @@ export default function PartnershipBlock({
 <div className="hidden md:flex justify-end mt-1">
   <div className="w-10 h-10 animate-slide-x bg-[#CBE4C2] rounded-full flex items-center justify-center shadow">
     <img
-      src="/icons/arrow.svg"
+      src="/icons/Arrow.svg"
       alt="Scroll horizontal"
       className="w-5 h-5"
     />

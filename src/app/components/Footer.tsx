@@ -36,7 +36,7 @@ export default function Footer({ contactHtml }: FooterProps) {
         <div className="flex flex-col gap-6 items-center md:items-end text-center md:text-right">
           <div className="flex gap-6">
             <a
-              href="https://www.linkedin.com/company/panorama-be/"
+              href="https://www.instagram.com/panorama_be?igsh=MWRqcXB3ZGZ5d3N6dA%3D%3D&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -44,7 +44,7 @@ export default function Footer({ contactHtml }: FooterProps) {
               <Image src="/icons/LinkedIn.svg" alt="LinkedIn" width={32} height={32} />
             </a>
             <a
-              href="https://www.instagram.com/tonprofil"
+              href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Aorganization%3A71708245&keywords=panorama&origin=RICH_QUERY_TYPEAHEAD_HISTORY&position=0&searchId=31e68dee-ee17-4c3b-bdac-c6b7e3888b33&sid=ADk&spellCorrectionEnabled=true"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -52,7 +52,7 @@ export default function Footer({ contactHtml }: FooterProps) {
               <Image src="/icons/Insta.svg" alt="Instagram" width={32} height={32} />
             </a>
             <a
-              href="https://www.tiktok.com/@tonprofil"
+              href="https://www.tiktok.com/@panorama_be?_t=ZN-8yK2XfnS138&_r=1"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"

@@ -58,7 +58,7 @@ export default function PartnersIntro({ blocks }: PartnersIntroProps) {
          
 <div className="mt-8 flex justify-center">
   <div className="bg-[#D2E4BB] p-4 rounded-full w-16 h-16 flex items-center justify-center shadow-md">
-    <img src="../icons/arrow.svg" alt="flèche vers le bas" className="rotate-90" />
+    <img src="../icons/Arrow.svg" alt="flèche vers le bas" className="rotate-90" />
   </div>
 </div>
             

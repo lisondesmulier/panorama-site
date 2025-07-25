@@ -111,9 +111,9 @@ const imageUrl = "/icons/logoContact.svg"; //
             className="flex justify-center gap-6 mt-6"
           >
             {[
-              { href: "https://twitter.com", icon: "/icons/tiktok.svg", alt: "TikTok" },
-              { href: "https://linkedin.com", icon: "/icons/LinkedIn.svg", alt: "LinkedIn" },
-              { href: "https://instagram.com", icon: "/icons/Insta.svg", alt: "Instagram" },
+              { href: "https://www.tiktok.com/@panorama_be?_t=ZN-8yK2XfnS138&_r=1", icon: "/icons/tiktok.svg", alt: "TikTok" },
+              { href: "https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Aorganization%3A71708245&keywords=panorama&origin=RICH_QUERY_TYPEAHEAD_HISTORY&position=0&searchId=31e68dee-ee17-4c3b-bdac-c6b7e3888b33&sid=ADk&spellCorrectionEnabled=true", icon: "/icons/LinkedIn.svg", alt: "LinkedIn" },
+              { href: "https://www.instagram.com/panorama_be?igsh=MWRqcXB3ZGZ5d3N6dA%3D%3D&utm_source=qr", icon: "/icons/Insta.svg", alt: "Instagram" },
             ].map((item, index) => (
               <a key={index} href={item.href} target="_blank" rel="noopener noreferrer">
                 <div className="w-16 h-16 rounded-full bg-[#01794D] flex items-center justify-center shadow-md hover:scale-105 transition">
