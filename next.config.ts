@@ -1,14 +1,10 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   images: {
     domains: ['localhost', 'res.cloudinary.com', 'panorama-cms.onrender.com'],
   },
-    eslint: {
+  eslint: {
     ignoreDuringBuilds: true,
   },
-}
+};
 
 export default nextConfig;
-
-
