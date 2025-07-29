@@ -357,11 +357,14 @@ export async function getBrands() {
   const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
   try {
-    const res = await fetch(`${API_URL}/api/section-marques?populate=*`, {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
-      },
-    });
+    const res = await fetch(
+      `${API_URL}/api/section-marques?populate=*&pagination[limit]=100`, // ✅ Ajout du paramètre
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+        },
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Erreur API : " + res.status);
@@ -377,34 +380,34 @@ export async function getBrands() {
         return aOrdre - bOrdre;
       })
       .map((brand: any) => ({
-  id: brand.id,
-  nom: brand.nom ?? "",
-  logoNB:
-    brand.logoNB?.url?.startsWith("http")
-      ? brand.logoNB.url
-      : brand.logoNB?.url
-      ? `${API_URL}${brand.logoNB.url}`
-      : brand.logoNB?.formats?.thumbnail?.url
-      ? `${API_URL}${brand.logoNB.formats.thumbnail.url}`
-      : "",
+        id: brand.id,
+        nom: brand.nom ?? "",
+        logoNB:
+          brand.logoNB?.url?.startsWith("http")
+            ? brand.logoNB.url
+            : brand.logoNB?.url
+            ? `${API_URL}${brand.logoNB.url}`
+            : brand.logoNB?.formats?.thumbnail?.url
+            ? `${API_URL}${brand.logoNB.formats.thumbnail.url}`
+            : "",
 
-  logoCouleur:
-    brand.logoCouleur?.url?.startsWith("http")
-      ? brand.logoCouleur.url
-      : brand.logoCouleur?.url
-      ? `${API_URL}${brand.logoCouleur.url}`
-      : brand.logoCouleur?.formats?.thumbnail?.url
-      ? `${API_URL}${brand.logoCouleur.formats.thumbnail.url}`
-      : "",
+        logoCouleur:
+          brand.logoCouleur?.url?.startsWith("http")
+            ? brand.logoCouleur.url
+            : brand.logoCouleur?.url
+            ? `${API_URL}${brand.logoCouleur.url}`
+            : brand.logoCouleur?.formats?.thumbnail?.url
+            ? `${API_URL}${brand.logoCouleur.formats.thumbnail.url}`
+            : "",
 
-  lien: brand.lien ?? "",
-}))
-;
+        lien: brand.lien ?? "",
+      }));
   } catch (err) {
     console.error(err);
     return [];
   }
 }
+
 
 export async function getServicesPage() {
   const res = await fetch(
