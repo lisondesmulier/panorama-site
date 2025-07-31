@@ -24,7 +24,7 @@ export default function Navbar() {
     { href: "/contact", label: "CONTACT" },
   ]
 
-  const greenBgRoutes = ["/services", "/realisations", "/contact", "/parteneriats", "/societe"]
+  const greenBgRoutes = ["/services", "/realisations", "/contact", "/parteneriats", "/societe", "/mentions-legales" ]
   const hasGreenBg = greenBgRoutes.includes(pathname)
 
   const toggleMenu = () => setIsOpen(!isOpen)

@@ -25,23 +25,43 @@ export default function ServiceBlock({
   cards,
   bgColor = "white",
 }: ServiceBlockProps) {
+  // Détermine la bonne classe de grille selon le nombre de cards
+  const getGridClass = () => {
+    if (cards.length === 1) {
+      return "grid-cols-1 justify-items-center"
+    } else if (cards.length === 2) {
+      return "grid-cols-1 sm:grid-cols-2 justify-items-center"
+    } else {
+      return "grid-cols-1 md:grid-cols-3"
+    }
+  }
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className={`${bgColor === "white" ? "bg-[#F5EFE3] text-black" : "bg-[#F5EFE3] text-black"} py-16 px-4`}
+      className={`${
+        bgColor === "white"
+          ? "bg-[#F5EFE3] text-black"
+          : "bg-[#F5EFE3] text-black"
+      } py-16 px-4`}
     >
       <div className="max-w-6xl mx-auto">
-        <h2 className={`md:text-6xl text-4xl font-azoSuper mb-4 ${bgColor === "white" ? "text-[#01794D]" : "text-[#01794D]"}`}>
+        <h2
+          className={`md:text-6xl text-4xl font-azoSuper mb-4 ${
+            bgColor === "white" ? "text-[#01794D]" : "text-[#01794D]"
+          }`}
+        >
           {index}. {title}
         </h2>
 
-        <p className="md:text-xl text-sl whitespace-pre-line font-azoSansMedium mb-8">{description}</p>
+        <p className="md:text-xl text-sl whitespace-pre-line font-azoSansMedium mb-8">
+          {description}
+        </p>
 
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
+        <div className={`grid gap-4 ${getGridClass()}`}>
           {cards.map((card, i) => (
             <Card key={i} card={card} index={i} />
           ))}
@@ -56,7 +76,7 @@ function Card({ card, index }: { card: CardData; index: number }) {
 
   return (
     <motion.div
-      className="relative rounded-xl overflow-hidden group cursor-pointer"
+      className="relative rounded-xl overflow-hidden group cursor-pointer w-full "
       onClick={() => setIsOpen(!isOpen)}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
@@ -69,7 +89,9 @@ function Card({ card, index }: { card: CardData; index: number }) {
           src={card.image}
           alt={card.title}
           fill
-          className={`object-cover transition duration-300 ${isOpen ? "blur-sm scale-105" : ""}`}
+          className={`object-cover transition duration-300 ${
+            isOpen ? "blur-sm scale-105" : ""
+          }`}
         />
       </div>
 

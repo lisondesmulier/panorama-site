@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
 import { getBrands } from "../../../lib/api"
 
 interface Brand {
@@ -19,9 +20,17 @@ export default function BrandsSection() {
   }, [])
 
   return (
-    <section className="py-20 px-10 md:px-20 bg-white">
-      <h2 className="text-3xl text-center mb-20 font-azoSansMedium">Ils nous font confiance</h2>
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-8 justify-items-center">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+      className="py-20 md:px-10 md:px-20 bg-white"
+    >
+      <h2 className="text-3xl text-center mb-20 font-azoBlack">Ils nous font confiance</h2>
+
+      <div className="flex flex-wrap justify-center gap-8 md:gap-16 w-full max-w-[96rem] mx-auto">
+
         {brands.map((brand) => {
           const content = (
             <>
@@ -55,6 +64,6 @@ export default function BrandsSection() {
           )
         })}
       </div>
-    </section>
+    </motion.section>
   )
 }

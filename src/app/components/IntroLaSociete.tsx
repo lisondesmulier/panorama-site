@@ -15,9 +15,9 @@ export default function IntroLaSociete({ content }: Props) {
 
         {/* Bouton aligné à droite sur desktop, centré sur mobile */}
         <div className="flex md:justify-end justify-center mt-8">
-          <button className="w-full md:w-96 mt-12 px-6 py-2 border font-azoSans font-bold rounded-full text-sm hover:bg-white hover:text-green-800 transition">
-            En savoir plus sur nos services
-          </button>
+             <a href={`/services`} className="btn rounded-full mt-6 inline-block font-azoSansMedium px-6 py-2 text-[#01794D] bg-[#D2E4BB] rounded-full text-lg hover:bg-white transition">
+             En savoir plus sur nos services
+          </a>
         </div>
       </div>
     </section>

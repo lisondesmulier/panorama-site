@@ -138,7 +138,13 @@ export async function getPoles() {
     return []
   }
 
-  return rawPoles.map((item: any) => {
+ return rawPoles
+  .sort((a: any, b: any) => {
+    const aOrdre = a.ordre ?? Infinity
+    const bOrdre = b.ordre ?? Infinity
+    return aOrdre - bOrdre
+  })
+  .map((item: any) => {
     const memojis = Array.isArray(item.memojis)
       ? item.memojis.map((img: any) =>
           img.url?.startsWith("http")
@@ -154,6 +160,7 @@ export async function getPoles() {
       memojis,
     }
   })
+
 }
 export type PartnershipBlockType = {
   id: number
@@ -171,39 +178,39 @@ export async function getPartnershipBlocks() {
   });
 
   const json = await res.json();
-  if (!json.data) {
-    console.warn("❗Pas de données reçues :", json);
-    return []; // ou throw une erreur
-  }
-  console.log("📦 Données Strapi brutes :", JSON.stringify(json, null, 2));
-
   if (!json.data || !Array.isArray(json.data)) {
-    console.warn("❌ Données partnership-blocks non valides :", json.data);
+    console.warn("❗Pas de données reçues :", json);
     return [];
   }
 
-  return json.data.map((item: any) => {
-  const title = item.title ?? "";
-  const description = item.description ?? "";
-  const images = Array.isArray(item.images)
-    ? item.images.map((img: any) =>
-        img.url?.startsWith("http")
-          ? img.url
-          : `${process.env.NEXT_PUBLIC_STRAPI_URL}${img.url}`
-      )
-    : [];
+  return json.data
+    .map((item: any) => {
+      const title = item.title ?? "";
+      const description = item.description ?? "";
+      const displayAsGreenTitle = item.displayAsGreenTitle === "oui";
+      const images = Array.isArray(item.images)
+        ? item.images.map((img: any) =>
+            img.url?.startsWith("http")
+              ? img.url
+              : `${process.env.NEXT_PUBLIC_STRAPI_URL}${img.url}`
+          )
+        : [];
 
-  const displayAsGreenTitle = item.displayAsGreenTitle === "oui";
+      // Ajout de la ligne qui récupère ordre depuis attributes si besoin
+      const order = item.ordre ?? item.attributes?.ordre ?? 999;
 
-  return {
-    id: item.id,
-    title,
-    description,
-    images,
-    displayAsGreenTitle,
-  };
-});
+      return {
+        id: item.id,
+        title,
+        description,
+        images,
+        displayAsGreenTitle,
+        order,
+      };
+    })
+    .sort((a, b) => a.order - b.order);
 }
+
 
 export async function getLinkedinPosts() {
   const res = await fetch(

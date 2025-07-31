@@ -33,26 +33,6 @@ export default function PartnersIntro({ blocks }: PartnersIntroProps) {
           ))}
         </div>
 
-        {/* ✅ Titre */}
-        <h3 className="text-xl md:text-4xl font-azoSansMedium  mb-4">
-          Nos partenariats sportifs
-        </h3>
-
-        <p className="text-sm md:text-base font-azoSansMedium leading-relaxed whitespace-pre-line">
-          Chez Panorama, on aime les projets qui font vibrer, qui rassemblent et qui repoussent les limites. Le sport,
-          c’est tout ça à la fois.
-          <br />
-          Il incarne l’effort, l’engagement, la persévérance… autant de valeurs qui résonnent avec notre manière de
-          travailler et d’avancer au quotidien.
-          <br />
-          <br />
-          C’est donc avec enthousiasme qu’on s’engage aux côtés d’événements et d’athlètes qui partagent cette même énergie.
-          <br />
-          À travers ces partenariats, on soutient celles et ceux qui osent se dépasser, viser plus haut, rêver plus grand.
-          <br />
-          Parce qu’au fond, que ce soit sur un vélo ou dans un atelier, l’envie d’aller plus loin, c’est ce qui nous fait avancer.
-        </p>
-
             {/* Bulle flèche */}
         <div className="absolute -bottom-7 right-6 md:right-10 z-10">
          

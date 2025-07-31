@@ -32,7 +32,7 @@ export default async function Home() {
       <ServicesScrollText services={services} />
       <BlocVert />
       <LinkdnSection />
-      <BlocVert />
+    
 
       {/* ✅ Section dynamique depuis Strapi */}
       <ProjectsSection

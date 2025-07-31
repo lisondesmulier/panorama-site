@@ -7,7 +7,9 @@ import type { BlocksContent } from "@strapi/blocks-react-renderer"
 
 export const metadata = {
   title: "Panorama",
-  description: "Imprimerie à Mouscron",
+  icons: {
+    icon: "/favicon.svg",
+  },
 }
 
 export default async function RootLayout({

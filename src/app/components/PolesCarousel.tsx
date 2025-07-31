@@ -76,7 +76,7 @@ export default function PolesCarousel({ poles }: { poles: Pole[] }) {
 
   return (
     <section className="pt-16 pb-8 mt-10 overflow-hidden bg-[#F5EFE3] ">
-      <h2 className="sm:text-5xl text-2xl font-azoSuper text-[#01794D] mb-10 px-4 md:ml-20">Nos Experts</h2>
+      <h2 className="sm:text-5xl text-4xl font-azoSuper flex md:justify-start justify-center text-[#01794D] mb-10 px-4 md:ml-20">Nos Experts</h2>
 
       {/* === Desktop layout === */}
       <div className="hidden md:flex items-center justify-center gap-8 px-4">
@@ -98,8 +98,8 @@ export default function PolesCarousel({ poles }: { poles: Pole[] }) {
             className="absolute inset-0 bg-white shadow-[0px_0px_10px_rgba(0,0,0,0.10)] rounded-2xl p-6 text-black flex flex-col  text-center"
 
             >
-              <h3 className="text-lg font-bold">{pole.title}</h3>
-              <p className="text-sm italic text-gray-500">{pole.members}</p>
+              <h3 className="text-lg font-azoSansRegular font-bold ">{pole.title}</h3>
+              <p className="text-sm italic font-azoSansRegular text-gray-500">{pole.members}</p>
               <div className="mt-3 text-sm md:text-lg whitespace-pre-line font-azoSansRegular max-h-[250px] overflow-y-auto pr-2">
                 {pole.description}
               </div>
@@ -127,7 +127,7 @@ export default function PolesCarousel({ poles }: { poles: Pole[] }) {
               transition={{ duration: 0.4 }}
               className="absolute  text-center inset-0 bg-white  shadow-[0px_0px_10px_rgba(0,0,0,0.10)] rounded-2xl p-6 pt-2 text-black text-left"
             >
-              <h3 className="text-lg font-bold text-center">{pole.title}</h3>
+              <h3 className="text-lg font-azoSansMedium text-center">{pole.title}</h3>
               <p className="text-sm italic text-center text-gray-500">{pole.members}</p>
               <div className="mt-3 font-azoSansRegular text-sm whitespace-pre-line max-h-[230px] overflow-y-auto pr-2">
                 {pole.description}

@@ -69,6 +69,13 @@ export default function Footer({ contactHtml }: FooterProps) {
         </div>
       </div>
 
+   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-sm text-white/70 flex gap-4">
+  <Link href="/mentions-legales" className="hover:underline">
+    Mentions légales
+  </Link>
+</div>
+
+
       {/* Filigrane décoratif */}
       <div className="absolute bottom-0 left-0 w-full h-full opacity-10 z-0 pointer-events-none">
         <Image
@@ -78,6 +85,8 @@ export default function Footer({ contactHtml }: FooterProps) {
           className="object-contain object-bottom"
         />
       </div>
+
+
     </footer>
   )
 }

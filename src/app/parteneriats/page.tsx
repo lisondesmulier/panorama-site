@@ -28,6 +28,7 @@ export default async function Partenariats() {
     images={block.images}
     displayAsGreenTitle={block.displayAsGreenTitle}
     index={index}
+
   />
 ))}
 

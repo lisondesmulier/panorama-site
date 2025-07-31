@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { getLinkedinPosts } from "../../../lib/api"
 import { timeAgo } from "../../../lib/dateUtils"
 import RichText from "./RichText"
 import type { BlocksContent } from "@strapi/blocks-react-renderer"
 import { AnimatePresence, motion } from "framer-motion"
 import { useSwipeable } from "react-swipeable"
+import { useEffect, useState, useRef } from "react"
+
 
 // Types
 
@@ -110,6 +111,16 @@ function PostCard({ post }: { post: Post }) {
   const [current, setCurrent] = useState(0)
   const total = post.images.length
   const media = post.images[current]
+  const [isOverflowing, setIsOverflowing] = useState(false)
+const textRef = useRef<HTMLDivElement>(null)
+
+useEffect(() => {
+  const el = textRef.current
+  if (el) {
+    setIsOverflowing(el.scrollHeight > el.clientHeight)
+  }
+}, [])
+
 
   if (!media) {
     return (
@@ -147,9 +158,18 @@ function PostCard({ post }: { post: Post }) {
       </a>
 
       {/* Description (scroll simple) */}
-      <div className="max-h-[180px] overflow-y-auto p-4 text-sm font-azoSansRegular text-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-        <RichText content={post.description} />
-      </div>
+     <div className="relative max-h-[180px]">
+  <div
+    ref={textRef}
+    className="overflow-y-auto h-full p-4 text-sm font-azoSansRegular text-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
+  >
+    <RichText content={post.description} />
+  </div>
+
+  {isOverflowing && (
+    <div className="pointer-events-none absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white to-transparent" />
+  )}
+</div>
 
       {/* Media */}
       <div className="relative w-full h-56 max-h-[300px] overflow-hidden flex items-center justify-center bg-black">

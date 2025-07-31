@@ -17,11 +17,16 @@ interface Project {
 
 export default function ProjetsPage() {
   const [projects, setProjects] = useState<Project[]>([])
+  const [projectsVisible, setProjectsVisible] = useState(false)
 
-  useEffect(() => {
+
+useEffect(() => {
   getProjects().then((data) => {
     console.log("DATA PROJECTS :", data)
     setProjects(data)
+
+    // ✅ Délai d'apparition des marques après les projets
+    setTimeout(() => setProjectsVisible(true), 1000) // tu peux ajuster à 800ms ou + selon l'animation
   })
 }, [])
 
@@ -74,7 +79,8 @@ export default function ProjetsPage() {
 
 </section>
 
-  <BrandsSection />
+{projectsVisible && <BrandsSection />}
+
       
     </>
   )
