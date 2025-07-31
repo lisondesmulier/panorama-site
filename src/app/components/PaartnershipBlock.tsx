@@ -41,13 +41,15 @@ export default function PartnershipBlock({
       
 {/* Texte */}
 {!displayAsGreenTitle && (
-  <div className="w-full flex">
+  <div className={`w-full flex`}>
     <motion.div
+      
       className={`bg-white shadow-xl px-6 md:px-10 py-8 w-full 
-        md:max-w-[80%] 
-        ${isEven ? 'md:mr-auto' : 'md:ml-auto'} 
-        ${isEven ? 'md:rounded-se-2xl' : 'md:rounded-ss-2xl'}
-      `}
+  md:max-w-[80%] 
+  ${!title ? 'md:mr-auto md:rounded-tr-2xl' : isEven ? 'md:mr-auto' : 'md:ml-auto'} 
+  ${isEven ? 'md:rounded-se-2xl' : 'md:rounded-ss-2xl'}
+`}
+
       initial={{ opacity: 0, x: isEven ? 50 : -50 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
@@ -70,19 +72,16 @@ export default function PartnershipBlock({
       transition={{ duration: 0.5 }}
       className={`
         md:max-w-[80%] max-w-5xl bg-[#01794D] text-white font-azoSansRegular
-        px-6 md:px-20 py-12 shadow-md
+        px-6 md:px-20 py-12 shadow-md mb-10
         ${images.length > 0 ? "rounded-se-2xl" : "rounded-e-2xl"}
+      
       `}
     >
-      <h3 className={`text-2xl md:text-4xl font-azoSuper ${description ? "mb-6" : ""}`}>{title}</h3>
+      <h3 className={`text-2xl md:text-4xl font-azoSuper ${description ? "mb-6" : " "}`}>{title}</h3>
       <p className="text-base md:text-lg whitespace-pre-line">{description}</p>
     </motion.div>
   </div>
 )}
-
-
-
-
 
       {/* Affichage des images uniquement si présentes */}
       {images.length > 0 && (
@@ -98,7 +97,7 @@ export default function PartnershipBlock({
             {images.map((src, index) => (
               <div
                 key={index}
-                className="aspect-[3/2] w-[800px] min-w-[800px] flex-shrink-0 overflow-hidden"
+                className="aspect-[3/2] w-[900px] min-w-[900px] flex-shrink-0 overflow-hidden"
               >
                 <img
                   src={src}

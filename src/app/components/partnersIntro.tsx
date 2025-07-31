@@ -22,16 +22,19 @@ export default function PartnersIntro({ blocks }: PartnersIntroProps) {
 
         {/* ✅ Pastilles dynamiques */}
         <div className="flex flex-wrap gap-2 mb-6">
-          {blocks.map((block) => (
-            <a
-              key={block.id}
-              href={`#block-${block.id}`}
-              className="bg-[#CBE4C2] text-[#01794D] px-3 py-1 rounded-full text-sm font-semibold hover:bg-gray-200 transition"
-            >
-              {block.title}
-            </a>
-          ))}
-        </div>
+  {blocks
+    .filter((block) => block.title && block.title.trim() !== "")
+    .map((block) => (
+      <a
+        key={block.id}
+        href={`#block-${block.id}`}
+        className="bg-[#CBE4C2] text-[#01794D] px-3 py-1 rounded-full md:text-sm text-xs font-semibold hover:bg-gray-200 transition"
+      >
+        {block.title}
+      </a>
+    ))}
+</div>
+
 
             {/* Bulle flèche */}
         <div className="absolute -bottom-7 right-6 md:right-10 z-10">
