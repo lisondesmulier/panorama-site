@@ -208,7 +208,7 @@ export async function getPartnershipBlocks() {
         order,
       };
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((a: { order: number }, b: { order: number }) => a.order - b.order);
 }
 
 
