@@ -271,7 +271,7 @@ export async function getProjects() {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
     },
-    cache: "no-store",
+      next: { revalidate: 60 }, // ✅ permet un cache de 60s
   });
 
   const json = await res.json();
@@ -423,7 +423,7 @@ export async function getServicesPage() {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
       },
-      cache: "no-store",
+        next: { revalidate: 60 }, // ✅ permet un cache de 60s
     }
   );
 
@@ -507,7 +507,7 @@ export async function getFooter() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    cache: "no-store",
+      next: { revalidate: 120 }, //✅ permet un cache de 60s
   });
 
   if (!res.ok) {
