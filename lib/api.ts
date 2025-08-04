@@ -3,6 +3,7 @@ export async function getIntroSection() {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
     },
+    next: { revalidate: 60 }
   })
 
 
@@ -36,6 +37,7 @@ console.log(entry)
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
       },
+      next: { revalidate: 120 }
     }
   )
 
@@ -68,7 +70,7 @@ export async function getContactSection() {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
       },
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {
@@ -106,12 +108,13 @@ export async function getIntroLaSociete(): Promise<{ content: string[] }> {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
     },
+    next: { revalidate: 60 }
   });
 
   const json = await res.json();
   console.log("🔍 Contenu Strapi brut :", JSON.stringify(json, null, 2));
 
-  // Toujours retourner { content: string[] }
+  // Toujours retourner { content: string[] } 
   if (!json.data || !Array.isArray(json.data.content)) {
     return { content: [] };
   }
@@ -124,6 +127,7 @@ export async function getPoles() {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
     },
+    next: { revalidate: 60 }
   })
 
   const json = await res.json()
@@ -175,6 +179,7 @@ export async function getPartnershipBlocks() {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
     },
+    next: { revalidate: 60 }
   });
 
   const json = await res.json();
@@ -370,6 +375,7 @@ export async function getBrands() {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
         },
+        next: { revalidate: 60 }
       }
     );
 
@@ -507,7 +513,7 @@ export async function getFooter() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-      next: { revalidate: 120 }, //✅ permet un cache de 60s
+      next: { revalidate: 120 }, 
   });
 
   if (!res.ok) {
