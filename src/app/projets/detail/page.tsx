@@ -1,10 +1,8 @@
 'use client'
 
-export const dynamic = 'force-dynamic';
-
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import ProjectGallery from '../../components/ProjetGallery'
+import ProjectGallery from '../../components/ProjetGallery' // adapte le chemin si besoin
 
 export default function ProjectDetailPage() {
   const searchParams = useSearchParams()
