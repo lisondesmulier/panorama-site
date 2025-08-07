@@ -26,6 +26,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url("/icons/cursor2.svg ") 16 8, auto;
+}
+
+.cursor-logo {
+  cursor: url("/icons/cursor3.svg ") 16 16, auto;
 }
 
 * {

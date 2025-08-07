@@ -29,7 +29,10 @@ export default async function Home() {
         backgroundImageUrl={data.heroBackground || "/images/BackgroundHome.png"}
       />
       <IntroSection title={data.title} description={data.description} />
-      <ServicesScrollText services={services} />
+      <div className="cursor-logo">
+ <ServicesScrollText services={services} />
+      </div>
+     
       <BlocVert />
       <LinkdnSection />
     

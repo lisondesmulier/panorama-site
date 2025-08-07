@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-
+import slugify from "../../../lib/slugify"; // ou "../../lib/slugify"
 import { motion } from "framer-motion"
 
 type PartnershipBlockProps = {
@@ -26,7 +26,7 @@ export default function PartnershipBlock({
 
   return (
     <motion.section
-      id={`block-${id}`}
+      id={slugify(title)}
       className={`bg-[#F5EFE3] ${
   displayAsGreenTitle && images.length === 0 ? "pb-0" : "pb-40"
 } scroll-mt-24 relative`}

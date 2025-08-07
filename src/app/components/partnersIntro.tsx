@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import slugify from "../../../lib/slugify"
 
 type PartnersIntroProps = {
   blocks: {
@@ -39,7 +40,7 @@ export default function PartnersIntro({ blocks }: PartnersIntroProps) {
             .map((block) => (
               <a
                 key={block.id}
-                href={`#block-${block.id}`}
+                 href={`#${slugify(block.title)}`}
                 className="bg-[#CBE4C2] text-[#01794D] px-3 py-1 rounded-full md:text-sm text-xs font-semibold hover:bg-gray-200 transition"
               >
                 {block.title}

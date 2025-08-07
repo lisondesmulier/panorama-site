@@ -91,7 +91,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
   <img
     src={content.image.url}
     alt="Image de contact"
-    className="mx-auto h-28 md:h-40 my-5"
+    className="mx-auto h-34 md:h-44 my-6"
   />
 )}
           <p className="text-md md:text-lg text-gray-800 font-semibold mb-6">

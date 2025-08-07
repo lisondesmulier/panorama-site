@@ -149,17 +149,18 @@ export default function Navbar() {
   refs.current[href] = el
 }}
 
-              className="relative px-4 text-center"
+              className="relative px-4 text-center flex items-center"
             >
-              <Link href={href} className="inline-flex items-center justify-center h-full relative">
+              <Link href={href} className="inline-flex items-center justify-center h-full relative leading-none">
                 {label === "ACCUEIL" ? (
                   <motion.div
-  className="w-3 h-3 bg-white rounded-full flex items-center justify-center"
+  className="w-3 h-3 bg-white rounded-full flex items-center justify-center leading-none"
   animate={showHomeIcon ? { scale: 3 } : { scale: 1 }}
   transition={{ type: "spring", stiffness: 300, damping: 20 }}
+  style={{ transformOrigin: "center" }}
 >
   {showHomeIcon && (
-    <img src="/icons/Home.svg" alt="home" className="w-2 h-2" />
+    <img src="/icons/Home.svg" alt="home" className="block w-[7px] h-[7px] pointer-events-none select-none" />
   )}
 </motion.div>
 

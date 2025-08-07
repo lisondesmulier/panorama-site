@@ -41,9 +41,21 @@ export default function LinkedinPreview() {
   return (
     <section className="py-16 px-4 bg-[#F5EFE3] text-black">
       <div className="max-w-6xl mx-auto">
-        <h2 className="md:text-5xl text-3xl flex text-[#01794D] justify-center md:justify-start font-azoBlack mb-10">
-          Actualités
-        </h2>
+      <h2 className="relative md:text-5xl text-3xl flex justify-center md:justify-start font-azoBlack mb-10 text-[#01794D]">
+  {/* Cercle décoratif */}
+  <span
+    aria-hidden
+    className="
+      pointer-events-none absolute 
+      md:left-16 md:-top-6 
+      left-1/2 -translate-x-1/2 -top-4
+      w-16 h-16 md:w-24 md:h-24 
+      rounded-full bg-[#D2E4BB] opacity-90
+    "
+  />
+  {/* Texte au-dessus du cercle */}
+  <span className="relative z-10">Actualités</span>
+</h2>
 
         {/* Desktop grid */}
         <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
