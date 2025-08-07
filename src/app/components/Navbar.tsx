@@ -17,10 +17,10 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "ACCUEIL" },
-    { href: "/societe", label: "SOCIETE" },
+    { href: "/societe", label: "SOCIÉTÉ" },
     { href: "/services", label: "SERVICES" },
     { href: "/parteneriats", label: "PARTENARIATS" },
-    { href: "/projets", label: "REALISATIONS" },
+    { href: "/projets", label: "RÉALISATIONS" },
     { href: "/contact", label: "CONTACT" },
   ]
 
