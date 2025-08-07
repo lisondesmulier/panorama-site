@@ -116,7 +116,7 @@ export default function Navbar() {
 
 
         {/* Desktop nav */}
-        <ul className="hidden lg:flex relative font-azoSans font-medium justify-between w-full">
+        <ul className="hidden lg:flex relative font-azoSansMedium justify-between w-full">
           {/* Parentheses */}
           {pathname !== null && (
             <div
@@ -183,7 +183,7 @@ export default function Navbar() {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className="absolute top-full left-0 w-full bg-[#01794D] px-4 pb-4 text-white z-40 lg:hidden"
     >
-      <ul className="flex flex-col gap-4 font-azoSans font-medium">
+      <ul className="flex flex-col gap-4 font-azoSansMedium">
         {navItems.map(({ href, label }) => (
           <li key={href}>
             <Link href={href} onClick={() => setIsOpen(false)}>
