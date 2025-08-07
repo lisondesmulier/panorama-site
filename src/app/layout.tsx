@@ -8,7 +8,7 @@ import type { BlocksContent } from "@strapi/blocks-react-renderer"
 export const metadata = {
   title: "Panorama",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/logosimplepanovert.svg",
   },
 }
 

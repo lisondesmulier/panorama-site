@@ -22,7 +22,6 @@ export default function ProjetsPage() {
 
 useEffect(() => {
   getProjects().then((data) => {
-    console.log("DATA PROJECTS :", data)
     setProjects(data)
 
     // ✅ Délai d'apparition des marques après les projets

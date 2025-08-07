@@ -41,7 +41,7 @@ const isInView = useInView(ref, { once: true })
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8, duration: 0.8 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
           className="flex-1 flex flex-col justify-center items-center text-center"
         >
           <h3 className="text-2xl font-azoSansMedium mb-4">{title}</h3>

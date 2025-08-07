@@ -9,7 +9,6 @@ export async function getIntroSection() {
 
   const json = await res.json()
   const entry = json.data?.[0]
-console.log(entry)
 
   if (!entry) return null
 
@@ -28,8 +27,6 @@ console.log(entry)
 
 // lib/api.ts
  export async function getHomeServices() {
-  console.log("🔑 Token utilisé :", process.env.NEXT_PUBLIC_STRAPI_API_TOKEN)
-  console.log("🌍 URL utilisée :", process.env.NEXT_PUBLIC_STRAPI_URL)
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/home-services?populate=image`,
@@ -112,7 +109,6 @@ export async function getIntroLaSociete(): Promise<{ content: string[] }> {
   });
 
   const json = await res.json();
-  console.log("🔍 Contenu Strapi brut :", JSON.stringify(json, null, 2));
 
   // Toujours retourner { content: string[] } 
   if (!json.data || !Array.isArray(json.data.content)) {
@@ -280,7 +276,6 @@ export async function getProjects() {
   });
 
   const json = await res.json();
-  console.log("✅ API projects response:", json);
 
   return json.data.map((item: any) => {
     const imageUrl = item.image?.formats?.medium?.url || item.image?.url;
@@ -340,7 +335,6 @@ export async function getProjectByDocumentId(documentId: string) {
   }
 
   const data = await res.json();
-  console.log("Réponse brute API :", JSON.stringify(data, null, 2))
 
   const item = data?.data?.[0];
 
@@ -384,7 +378,6 @@ export async function getBrands() {
     }
 
     const data = await res.json();
-    console.log("Réponse API Marques :", data);
 
     return data.data
       .sort((a: any, b: any) => {
@@ -444,11 +437,8 @@ export async function getBrandsliste(): Promise<string[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/brand-slider`);
   const json = await res.json();
 
-  console.log("Réponse complète :", JSON.stringify(json, null, 2));
-
   // ✅ brandsString est directement dans json.data, pas dans attributes
   const brandsString = json.data?.brandsString ?? "";
-  console.log("brandsString:", brandsString);
 
   return brandsString.split(",").map((b: string) => b.trim());
 }

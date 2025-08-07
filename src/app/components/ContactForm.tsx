@@ -1,29 +1,20 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react"
 
 interface ContactSectionProps {
   data: {
-    phrase1: string;
-    phrase2: string;
-    titreFormulaire: string;
-    options?: { label: string }[];
-    image?: {
-      url?: string;
-    };
-  };
-}
-export default function ContactSection({ data }: ContactSectionProps) {
-
-    if (!data) {
-    return (
-      <div className="text-red-600 text-center py-10">
-        Erreur : données de contact non disponibles.
-      </div>
-    )
+    phrase1: string
+    phrase2: string
+    titreFormulaire: string
+    options?: { label: string }[]
+    image?: { url?: string }
   }
-  const content = data;
+}
+
+export default function ContactSection({ data }: ContactSectionProps) {
+  const content = data
 
   const [formData, setFormData] = useState({
     prenom: "",
@@ -36,7 +27,9 @@ export default function ContactSection({ data }: ContactSectionProps) {
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   }
@@ -47,39 +40,39 @@ export default function ContactSection({ data }: ContactSectionProps) {
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/contact/send`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(formData),
-})
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
 
-      const response = await res.json()
-
-      if (response.success) {
-        setStatus("success")
-        alert("Message envoyé avec succès.")
-        setFormData({
-          prenom: "",
-          nom: "",
-          email: "",
-          telephone: "",
-          besoin: "",
-          message: "",
-        })
-      } else {
+      if (!res.ok) {
         setStatus("error")
-        alert("Erreur lors de l'envoi.")
+        return
       }
+
+      setStatus("success")
+      setFormData({
+        prenom: "",
+        nom: "",
+        email: "",
+        telephone: "",
+        besoin: "",
+        message: "",
+      })
     } catch (error) {
       setStatus("error")
-      alert("Erreur serveur.")
     }
   }
 
+  // Reset message après 5 secondes
+  useEffect(() => {
+    if (status === "success" || status === "error") {
+      const timer = setTimeout(() => setStatus("idle"), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [status])
 
-
-const imageUrl = "/icons/logoContact.svg"; //
+  const imageUrl = "/icons/lisoncontact.png"
 
   return (
     <motion.section
@@ -88,16 +81,19 @@ const imageUrl = "/icons/logoContact.svg"; //
       transition={{ duration: 0.6 }}
       className="relative bg-[#F5EFE3] w-full flex flex-col items-center py-12 font-azoSansRegular"
     >
-      <section className="w-full flex flex-col items-center py-12 font-azoSansRegular">
-        {/* Texte + logo */}
+      <section className="w-full flex flex-col items-center py-8">
+        {/* Texte + image */}
         <div className="text-center px-4 mb-12 max-w-3xl">
           <p className="text-md md:text-lg text-gray-800 font-semibold mb-4">
             {content.phrase1}
           </p>
-
-         <img src={imageUrl} alt="Logo" className="h-10 mx-auto my-4" />
-
-
+         {content.image?.url && (
+  <img
+    src={content.image.url}
+    alt="Image de contact"
+    className="mx-auto h-28 md:h-40 my-5"
+  />
+)}
           <p className="text-md md:text-lg text-gray-800 font-semibold mb-6">
             {content.phrase2}
           </p>
@@ -111,9 +107,21 @@ const imageUrl = "/icons/logoContact.svg"; //
             className="flex justify-center gap-6 mt-6"
           >
             {[
-              { href: "https://www.tiktok.com/@panorama_be?_t=ZN-8yK2XfnS138&_r=1", icon: "/icons/tiktok.svg", alt: "TikTok" },
-              { href: "https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Aorganization%3A71708245&keywords=panorama&origin=RICH_QUERY_TYPEAHEAD_HISTORY&position=0&searchId=31e68dee-ee17-4c3b-bdac-c6b7e3888b33&sid=ADk&spellCorrectionEnabled=true", icon: "/icons/LinkedIn.svg", alt: "LinkedIn" },
-              { href: "https://www.instagram.com/panorama_be?igsh=MWRqcXB3ZGZ5d3N6dA%3D%3D&utm_source=qr", icon: "/icons/Insta.svg", alt: "Instagram" },
+              {
+                href: "https://www.tiktok.com/@panorama_be?_t=ZN-8yK2XfnS138&_r=1",
+                icon: "/icons/tiktok.svg",
+                alt: "TikTok",
+              },
+              {
+                href: "https://www.linkedin.com/company/panorama-be/posts/?feedView=all",
+                icon: "/icons/LinkedIn.svg",
+                alt: "LinkedIn",
+              },
+              {
+                href: "https://www.instagram.com/panorama_be?igsh=MWRqcXB3ZGZ5d3N6dA%3D%3D&utm_source=qr",
+                icon: "/icons/Insta.svg",
+                alt: "Instagram",
+              },
             ].map((item, index) => (
               <a key={index} href={item.href} target="_blank" rel="noopener noreferrer">
                 <div className="w-16 h-16 rounded-full bg-[#01794D] flex items-center justify-center shadow-md hover:scale-105 transition">
@@ -125,12 +133,15 @@ const imageUrl = "/icons/logoContact.svg"; //
         </div>
 
         {/* Formulaire */}
-        <div className="bg-[#01794D] text-white w-full max-w-3xl rounded-md px-6 py-10 shadow-xl">
+        <div className="bg-[#01794D] text-white w-full max-w-3xl rounded-md px-6 py-10 shadow-xl relative">
           <h2 className="text-center text-lg uppercase font-bold mb-8">
             {content.titreFormulaire || "Contactez-nous"}
           </h2>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
+          >
             <div>
               <label className="text-sm mb-1 block">Prénom *</label>
               <input
@@ -187,9 +198,13 @@ const imageUrl = "/icons/logoContact.svg"; //
                 required
                 className="w-full p-3 rounded-md bg-white text-gray-800"
               >
-                <option value="" disabled hidden>Choisissez une option</option>
+                <option value="" disabled hidden>
+                  Choisissez une option
+                </option>
                 {content.options?.map((opt, i) => (
-                  <option key={i} value={opt.label}>{opt.label}</option>
+                  <option key={i} value={opt.label}>
+                    {opt.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -215,6 +230,32 @@ const imageUrl = "/icons/logoContact.svg"; //
               </button>
             </div>
           </form>
+
+          {/* ✅ Feedback intégré */}
+          <AnimatePresence>
+            {status === "success" && (
+              <motion.p
+                role="alert"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 text-green-300 font-semibold"
+              >
+                Message envoyé avec succès !
+              </motion.p>
+            )}
+            {status === "error" && (
+              <motion.p
+                role="alert"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 text-red-300 font-semibold"
+              >
+                Une erreur est survenue. Veuillez réessayer.
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     </motion.section>
