@@ -13,9 +13,11 @@ export const metadata = {
     apple: "/apple-touch-icon.png",
   },
   other: {
-    "mask-icon": "/safari-pinned-tab.svg",
+    "mask-icon": "/safari-pinned-tab.svg", // Safari macOS (onglet épinglé)
+    "theme-color": "#01794D",              // barre d’adresse mobile
   },
 }
+
 
 export default async function RootLayout({
   children,
