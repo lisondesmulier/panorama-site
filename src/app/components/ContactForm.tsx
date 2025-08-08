@@ -81,7 +81,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
       transition={{ duration: 0.6 }}
       className="relative bg-[#F5EFE3] w-full flex flex-col items-center py-12 font-azoSansRegular"
     >
-      <section className="w-full flex flex-col items-center py-8">
+      <section className="w-full flex flex-col items-center md:py-8 py-4">
         {/* Texte + image */}
         <div className="text-center px-4 mb-12 max-w-3xl">
           <p className="text-md md:text-lg text-gray-800 font-semibold mb-4">

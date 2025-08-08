@@ -34,7 +34,7 @@ export default function PartnershipBlock({
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
     >
     
 
@@ -53,7 +53,7 @@ export default function PartnershipBlock({
       initial={{ opacity: 0, x: isEven ? 50 : -50 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.5 }}
     >
       <h3 className="text-xl md:text-3xl font-azoBlack text-[#4C4C4C] mb-4">{title}</h3>
       <p className="text-base md:text-lg font-azoSansRegular text-[#797979] whitespace-pre-line">
