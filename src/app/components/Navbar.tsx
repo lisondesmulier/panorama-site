@@ -138,12 +138,12 @@ useEffect(() => {
               <img
                 src="/icons/parenthesesBlanc.svg"
                 alt="("
-                className="w-3 h-auto translate-y-[1px]"
+                className="w-3 h-auto"
               />
               <img
                 src="/icons/parenthesesBlanc.svg"
                 alt=")"
-                className="w-3 h-auto translate-y-[1px] rotate-180"
+                className="w-3 h-auto rotate-180"
               />
             </div>
           )}
@@ -155,19 +155,19 @@ useEffect(() => {
   refs.current[href] = el
 }}
 
-              className="relative px-4 text-center flex items-center"
+              className="relative px-3 text-center flex items-center"
             >
               <Link href={href} className="inline-flex items-center justify-center h-full relative leading-none">
               {label === "ACCUEIL" ? (
   <span className="inline-flex items-center justify-center w-5 h-5">
     <motion.span
-      className="w-2 h-2 bg-white rounded-full absolute"
+      className="w-3 h-3 bg-white rounded-full absolute"
       animate={showHomeIcon ? { scale: 3 } : { scale: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       style={{ transformOrigin: "center" }}
     />
     {showHomeIcon && (
-      <img src="/icons/Home.svg" alt="home" className="w-[7px] h-[7px] relative block select-none pointer-events-none" />
+      <img src="/icons/Home.svg" alt="home" className="w-[20px] h-[20px] relative block select-none pointer-events-none" />
     )}
   </span>
 ) : ( label )}
