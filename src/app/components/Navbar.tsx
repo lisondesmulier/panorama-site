@@ -13,6 +13,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
 
+  const listRef = useRef<HTMLUListElement | null>(null);
+
   const refs = useRef<{ [key: string]: HTMLLIElement | null }>({})
 
   const navItems = [
@@ -33,37 +35,46 @@ export default function Navbar() {
   if (pathname.startsWith("/projets/") && pathname.split("/").length === 3) {
     return null
   }
-
 useEffect(() => {
+  const GUTTER = 1; // petit espace visuel pour que les parenthèses ne touchent pas les lettres
+
   const recalc = () => {
-    const el = refs.current[pathname];
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    setIndicatorStyle({ left: el.offsetLeft, width: rect.width });
+    const li = refs.current[pathname];
+    const ul = listRef.current;
+    if (!li || !ul) return;
+
+    const liRect = li.getBoundingClientRect();
+    const ulRect = ul.getBoundingClientRect();
+
+    // positions relatives au <ul>, et largeur du <li> (inclut padding horizontal)
+    const left = Math.max(0, liRect.left - ulRect.left - GUTTER);
+    const width = liRect.width + GUTTER * 2;
+
+    setIndicatorStyle({ left, width });
     setShowHomeIcon(pathname !== "/");
   };
 
-  // 1) premier calc
   recalc();
 
-  // 2) quand les polices sont prêtes
-  if (typeof document !== "undefined" && (document as any).fonts?.ready) {
-    (document as any).fonts.ready.then(recalc);
-  }
+  // attendre le chargement des polices (évite les écarts Win/Mac)
+  (document as any).fonts?.ready?.then(recalc);
 
-  // 3) au resize
+  // recalculer au resize
   window.addEventListener("resize", recalc);
 
-  // 4) si la largeur de l'élément actif change
-  const el = refs.current[pathname];
-  const ro = el ? new ResizeObserver(recalc) : null;
-  if (el && ro) ro.observe(el);
+  // si l'élément actif change de taille (police, zoom, etc.)
+  const li = refs.current[pathname];
+  const ro = li ? new ResizeObserver(recalc) : null;
+  if (li && ro) {
+    ro.observe(li);
+  }
 
   return () => {
     window.removeEventListener("resize", recalc);
     ro?.disconnect();
   };
 }, [pathname]);
+
 
   return (
     <header className={`absolute top-0 z-50 w-full text-white ${hasGreenBg ? "bg-[#01794D]" : ""}`}>
@@ -72,7 +83,6 @@ useEffect(() => {
     isOpen ? "bg-[#01794D]" : ""
   }`}
 >
-
         {/* Mobile button */}
        <div className="flex items-center justify-between w-full lg:hidden">
   {/* Logo à gauche */}
@@ -121,14 +131,18 @@ useEffect(() => {
 
 
         {/* Desktop nav */}
-        <ul className="hidden lg:flex relative font-azoSansMedium justify-between w-full">
+       <ul
+  ref={listRef}
+  className="hidden lg:flex relative font-azoSansMedium justify-between w-full"
+>
+
           {/* Parentheses */}
           {pathname !== null && (
             <div
   className="absolute flex items-center pointer-events-none transition-all duration-500 ease-in-out"
   style={{
-    left: Math.max(0, indicatorStyle.left - 1),
-    width: indicatorStyle.width + 2,
+    left: indicatorStyle.left,
+    width: indicatorStyle.width,
     top: "50%",
     transform: "translateY(-50%)",
     justifyContent: "space-between",
