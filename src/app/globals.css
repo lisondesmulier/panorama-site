@@ -26,11 +26,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url("/icons/cursor2.svg ") 16 8, auto;
+  cursor: url("/icons/cursor2.svg") 16 8, auto;
 }
 
 .cursor-logo {
-  cursor: url("/icons/cursor3.svg ") 16 16, auto;
+  cursor: url("/icons/cursor3.svg") 16 16, auto;
 }
 
 * {
@@ -61,7 +61,7 @@ a {
   font-family: "AzoMono";
   src: url("/fonts/AzoMonoTest-Bold.otf") format("opentype");
   font-weight: 700;
-  font-style: bold;
+  font-style: normal;
 }
 @font-face {
   font-family: "AzoMono";
@@ -111,7 +111,7 @@ a {
   font-family: "AzoSans";
   src: url("/fonts/AzoSansTest-Bold.otf") format("opentype");
   font-weight: 700;
-  font-style: bold;
+  font-style: normal;
 }
 @font-face {
   font-family: "AzoSans";
@@ -130,7 +130,7 @@ a {
   font-family: "AzoSans";
   src: url("/fonts/AzoSansTest-Thin.otf") format("opentype");
   font-weight: 400;
-  font-style: thin;
+  font-style: normal;
 }
 
 
@@ -178,4 +178,10 @@ a {
   height: 2.5rem;
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);
   pointer-events: none;
+}
+
+
+nav, nav * {
+  font-family: "AzoSansMedium", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-synthesis-weight: none; /* évite le faux gras qui décale la largeur */
 }

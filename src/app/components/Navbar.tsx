@@ -34,30 +34,36 @@ export default function Navbar() {
     return null
   }
 
-  useEffect(() => {
-  const activeRef = refs.current[pathname]
-  if (activeRef) {
-    const rect = activeRef.getBoundingClientRect()
-    const offsetLeft = activeRef.offsetLeft
-    const offsetWidth = rect.width
-    setIndicatorStyle({ left: offsetLeft, width: offsetWidth })
+useEffect(() => {
+  const recalc = () => {
+    const el = refs.current[pathname];
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    setIndicatorStyle({ left: el.offsetLeft, width: rect.width });
+    setShowHomeIcon(pathname !== "/");
+  };
 
-    // Affiche l'icône home si on n'est pas sur ACCUEIL
-    setShowHomeIcon(pathname !== "/")
+  // 1) premier calc
+  recalc();
+
+  // 2) quand les polices sont prêtes
+  if (typeof document !== "undefined" && (document as any).fonts?.ready) {
+    (document as any).fonts.ready.then(recalc);
   }
-}, [pathname])
 
+  // 3) au resize
+  window.addEventListener("resize", recalc);
 
+  // 4) si la largeur de l'élément actif change
+  const el = refs.current[pathname];
+  const ro = el ? new ResizeObserver(recalc) : null;
+  if (el && ro) ro.observe(el);
 
-  useEffect(() => {
-    const activeRef = refs.current[pathname]
-    if (activeRef) {
-      const rect = activeRef.getBoundingClientRect()
-      const offsetLeft = activeRef.offsetLeft
-      const offsetWidth = rect.width
-      setIndicatorStyle({ left: offsetLeft, width: offsetWidth })
-    }
-  }, [pathname])
+  return () => {
+    window.removeEventListener("resize", recalc);
+    ro?.disconnect();
+  };
+}, [pathname]);
 
   return (
     <header className={`absolute top-0 z-50 w-full text-white ${hasGreenBg ? "bg-[#01794D]" : ""}`}>
@@ -66,7 +72,6 @@ export default function Navbar() {
     isOpen ? "bg-[#01794D]" : ""
   }`}
 >
-
 
         {/* Mobile button */}
        <div className="flex items-center justify-between w-full lg:hidden">
@@ -120,15 +125,16 @@ export default function Navbar() {
           {/* Parentheses */}
           {pathname !== null && (
             <div
-              className="absolute flex items-center pointer-events-none transition-all duration-500 ease-in-out"
-              style={{
-                left: indicatorStyle.left,
-                width: indicatorStyle.width,
-                top: "50%",
-                transform: "translateY(-50%)",
-                justifyContent: "space-between",
-              }}
-            >
+  className="absolute flex items-center pointer-events-none transition-all duration-500 ease-in-out"
+  style={{
+    left: Math.max(0, indicatorStyle.left - 1),
+    width: indicatorStyle.width + 2,
+    top: "50%",
+    transform: "translateY(-50%)",
+    justifyContent: "space-between",
+  }}
+>
+
               <img
                 src="/icons/parenthesesBlanc.svg"
                 alt="("
@@ -152,21 +158,20 @@ export default function Navbar() {
               className="relative px-4 text-center flex items-center"
             >
               <Link href={href} className="inline-flex items-center justify-center h-full relative leading-none">
-                {label === "ACCUEIL" ? (
-                  <motion.div
-  className="w-3 h-3 bg-white rounded-full flex items-center justify-center leading-none"
-  animate={showHomeIcon ? { scale: 3 } : { scale: 1 }}
-  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-  style={{ transformOrigin: "center" }}
->
-  {showHomeIcon && (
-    <img src="/icons/Home.svg" alt="home" className="block w-[7px] h-[7px] pointer-events-none select-none" />
-  )}
-</motion.div>
+              {label === "ACCUEIL" ? (
+  <span className="inline-flex items-center justify-center w-5 h-5">
+    <motion.span
+      className="w-2 h-2 bg-white rounded-full absolute"
+      animate={showHomeIcon ? { scale: 3 } : { scale: 1 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      style={{ transformOrigin: "center" }}
+    />
+    {showHomeIcon && (
+      <img src="/icons/Home.svg" alt="home" className="w-[7px] h-[7px] relative block select-none pointer-events-none" />
+    )}
+  </span>
+) : ( label )}
 
-                ) : (
-                  label
-                )}
               </Link>
             </li>
           ))}
