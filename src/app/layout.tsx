@@ -7,16 +7,16 @@ import type { BlocksContent } from "@strapi/blocks-react-renderer"
 
 export const metadata = {
   title: "Panorama",
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" }, // fallback pour anciens navigateurs
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180" },
-    ],
-  },
+ icons: {
+  icon: [
+    { url: "/favicon.ico?v=3", sizes: "any" },
+    { url: "/favicon-96x96.png?v=3", sizes: "96x96", type: "image/png" },
+    // (tu peux retirer le svg le temps du test)
+  ],
+  apple: [{ url: "/apple-touch-icon.png?v=3", sizes: "180x180" }],
+  other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg?v=3", color: "#01794D" }],
+},
+
   manifest: "/site.webmanifest",
   other: {
     "apple-mobile-web-app-title": "Panorama",
