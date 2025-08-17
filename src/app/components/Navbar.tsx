@@ -21,12 +21,12 @@ export default function Navbar() {
     { href: "/", label: "ACCUEIL" },
     { href: "/societe", label: "SOCIÉTÉ" },
     { href: "/services", label: "SERVICES" },
-    { href: "/parteneriats", label: "PARTENARIATS" },
+    { href: "/partenariats", label: "PARTENARIATS" },
     { href: "/projets", label: "RÉALISATIONS" },
     { href: "/contact", label: "CONTACT" },
   ]
 
-  const greenBgRoutes = ["/services", "/realisations", "/contact", "/parteneriats", "/societe", "/mentions-legales" ]
+  const greenBgRoutes = ["/services", "/realisations", "/contact", "/partenariats", "/societe", "/mentions-legales" ]
   const hasGreenBg = greenBgRoutes.includes(pathname)
 
   const toggleMenu = () => setIsOpen(!isOpen)
