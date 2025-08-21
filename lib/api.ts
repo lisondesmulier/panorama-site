@@ -514,6 +514,27 @@ export async function getFooter() {
   return json.data;
 }
 
+export async function getLegalText() {
+  const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL!;
+  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN!;
+
+  const res = await fetch(
+    `${API_URL}/api/footer?fields[0]=legalText`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 120 }, // ou tags si tu fais ISR + webhook plus tard
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`❌ Erreur Strapi footer : ${res.status}`);
+  }
+
+  const json = await res.json();
+  return json?.data?.legalText ?? "";
+}
+
+
 export async function getPartnershipIntro() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/partnerships-intro`, {
     headers: {
