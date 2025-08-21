@@ -5,7 +5,9 @@ import Footer from "./components/Footer"
 import { getFooter } from "../../lib/api"
 import type { BlocksContent } from "@strapi/blocks-react-renderer"
 
+
 export const metadata = {
+  robots: { index: false, follow: false },
   title: "Panorama",
  icons: {
   icon: [
