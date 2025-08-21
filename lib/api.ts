@@ -503,7 +503,7 @@ export async function getFooter() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-      next: { revalidate: 120 }, 
+      next: { revalidate: 60 }, 
   });
 
   if (!res.ok) {
