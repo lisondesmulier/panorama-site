@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import { getFooter } from "../../lib/api"
 import type { BlocksContent } from "@strapi/blocks-react-renderer"
+// app/layout.tsx
+import { Analytics } from "@vercel/analytics/react";
 
 
 export const metadata = {
@@ -38,6 +40,7 @@ export default async function RootLayout({
         <Navbar />
         {children}
         <Footer contactHtml={footerData.contactInfos as BlocksContent} />
+         <Analytics /> 
       </body>
     </html>
   )
