@@ -61,7 +61,7 @@ export default function PartnershipsSection({
           <h2 className="text-4xl md:text-6xl font-azoSuper leading-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
             {title}
           </h2>
-          <Link href="/parteneriats">
+          <Link href="/partenariats">
             <span className="mt-6 inline-block font-azoSans px-6 py-2 border-2 border-white rounded-full text-white text-lg font-semibold hover:bg-white hover:text-black transition">
               {buttonText}
             </span>
